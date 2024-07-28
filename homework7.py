@@ -92,7 +92,9 @@ def show_birthday(args, book):
 
 @input_error
 def birthdays(book):
+
     upcoming_birthdays = book.get_upcoming_birthdays()
+
     if upcoming_birthdays:
         return "\n".join(f"{item["name"]}: {item["birthday"]}" for item in upcoming_birthdays)
     return "No birthdays."
