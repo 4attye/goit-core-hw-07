@@ -26,7 +26,7 @@ def input_error(func):
 @input_error
 def add_contact(args, book):
 
-    name, phone = args
+    name, phone, *_ = args
     record = book.find(name)
     message = "Phone number added."
 
