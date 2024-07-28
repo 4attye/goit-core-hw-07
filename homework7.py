@@ -1,4 +1,6 @@
+from datetime import datetime
 from contacts import AddressBook, Record
+
 
 def parse_input(user_input):
 
@@ -85,10 +87,10 @@ def show_birthday(args, book):
     name = args[0]
     record = book.find(name)
 
-    if record :
-        return record.birthday.value
+    if record and record.birthday:
+        return record.birthday.value.strftime("%d.%m.%Y")
     else:
-        raise KeyError
+        return "Birthday not found."
 
 @input_error
 def birthdays(book):
