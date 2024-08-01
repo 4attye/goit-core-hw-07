@@ -1,5 +1,5 @@
-from datetime import datetime
 from contacts import AddressBook, Record
+import pickle
 
 
 def parse_input(user_input):
@@ -101,9 +101,22 @@ def birthdays(book):
         return "\n".join(f"{item["name"]}: {item["birthday"]}" for item in upcoming_birthdays)
     return "No birthdays."
 
+@input_error
+def save_data(book, filename="addressbook.pkl"):
+    with open(filename, "wb") as file:
+        pickle.dump(book, file)
+
+@input_error
+def load_data(filename="addressbook.pkl"):
+    try:
+        with open(filename, "rb") as file:
+            return pickle.load(file)
+    except FileNotFoundError:
+        return AddressBook()
+
 def main():
 
-    book = AddressBook()
+    book = load_data()
     print("Welcome to the assistant bot!")
 
     while True:
@@ -113,9 +126,11 @@ def main():
 
         match command:
             case "close":
+                save_data(book)
                 print("Good bye!")
                 break
             case "exit":
+                save_data(book)
                 print("Good bye!")
                 break
             case "hello":
